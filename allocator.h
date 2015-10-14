@@ -7,10 +7,6 @@
 #include <array>
 #include <stack>
 
-typedef unsigned int uint;
-
-using namespace std;
-
 //AllocErrors[
 enum class AllocErrorType {
     InvalidFree,
@@ -51,7 +47,7 @@ public:
 };
 //]Ptr
 
-static array<Ptr, 1024> ptrs;
+static std::array<Ptr, 1024> ptrs;
 
 //Pointer[
 class Pointer{
@@ -68,7 +64,7 @@ public:
 //Allocator[
 class Allocator{
     size_t array_size = 0;
-    stack<size_t> free_index;
+    std::stack<size_t> free_index;
     
     struct FreeBlock
     {
@@ -80,7 +76,7 @@ class Allocator{
     void *next;
     size_t remain;
     size_t pool_size;
-    list<FreeBlock> blocks;
+    std::list<FreeBlock> blocks;
     
 public:
     Allocator(void *base = NULL, size_t size = 0): pool(base), next(base), remain(size), pool_size(size)
@@ -92,7 +88,7 @@ public:
     std::string dump() { return "Error"; }
     
 private:
-    vector<Ptr> copy();
+    std::vector<Ptr> copy();
     int setNextBlock(size_t size);
     void getFreeBlocks();
 };
